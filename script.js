@@ -395,6 +395,38 @@ function setupAutoHideNavbar() {
   });
 }
 
+/*function setupTestimonialCarousel() {
+  const track = document.getElementById('testimonial-track');
+  const prevBtn = document.querySelector('.testimonial-arrow-left');
+  const nextBtn = document.querySelector('.testimonial-arrow-right');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  function getScrollAmount() {
+    const firstCard = track.querySelector('.testimonial-card');
+    if (!firstCard) return 300;
+
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = 18;
+    return cardWidth + gap;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({
+      left: -getScrollAmount(),
+      behavior: 'smooth'
+    });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({
+      left: getScrollAmount(),
+      behavior: 'smooth'
+    });
+  });
+}
+
+setupTestimonialCarousel(); */
 setupMenu();
 setupLanguageSwitcher();
 setupContactForm();
