@@ -93,6 +93,32 @@ const translations = {
     formNamePlaceholder: "Tu nombre",
     formEmailPlaceholder: "tunombre@email.com",
     formMessagePlaceholder: "Contame brevemente en qué te puedo ayudar",
+
+    directNavHome: "Inicio",
+    directNavIntegral: "Solución integral",
+    directEyebrow: "Trabajo directo conmigo",
+    directHeroTitle: "Entender la operación, ordenar la información y convertirla en decisiones.",
+    directHeroLead: "Este enfoque está pensado para proyectos donde el valor está en analizar con criterio, construir claridad y traducir la información del negocio en herramientas concretas de seguimiento y control.",
+    directBackServices: "Volver a servicios",
+    directPanelTitle: "Un proceso con lógica de negocio",
+    directPanelText: "No se trata solamente de trabajar con datos. El valor real aparece cuando esa información se conecta con la operativa, responde a una necesidad concreta y se convierte en una herramienta útil para decidir con mayor claridad.",
+    directMethodTitle: "Metodología de trabajo",
+    directMethodText: "Cada proyecto parte de una lógica simple: primero entender, después estructurar, y finalmente visualizar. Ese recorrido permite que el análisis no quede aislado en lo técnico, sino que termine generando una mejora real en la lectura y control del negocio.",
+    directStep1Number: "01",
+    directStep1Title: "Entender antes de construir",
+    directStep1Text1: "Antes de trabajar sobre reportes, indicadores o dashboards, primero es necesario comprender cómo funciona realmente la operación. En esta instancia se identifican necesidades, objetivos, limitaciones, circuitos de trabajo y puntos donde hoy se pierde visibilidad o control.",
+    directStep1Text2: "Este paso permite que el análisis posterior tenga dirección y responda a una necesidad concreta del negocio, en lugar de quedarse en una lectura superficial de los datos.",
+    directStep2Number: "02",
+    directStep2Title: "Ordenar para poder decidir",
+    directStep2Text1: "Con el contexto claro, comienza el trabajo sobre la información. Extracción, revisión, limpieza, estructura y análisis técnico de los datos para convertir una base dispersa en una fuente confiable.",
+    directStep2Text2: "El objetivo no es solo procesar información, sino darle consistencia para que pueda ser utilizada con criterio, evitando ruido, duplicidades o interpretaciones erróneas que afecten la toma de decisiones.",
+    directStep3Number: "03",
+    directStep3Title: "Visualizar para controlar",
+    directStep3Text1: "El resultado final toma forma en indicadores, reportes y visualizaciones pensadas para facilitar el seguimiento del negocio. Esto incluye construcción de dashboards, definición de métricas útiles y ajustes necesarios para mantener la información actualizada y alineada con la realidad operativa.",
+    directStep3Text2: "No se trata solo de mostrar datos, sino de sostener una herramienta útil para interpretar desvíos, seguir resultados y decidir con mayor claridad.",
+    directCtaTitle: "Cuando la información se ordena, el negocio se entiende mejor.",
+    directCtaText: "Si buscás transformar datos dispersos en una base clara para analizar, controlar y decidir, este enfoque puede ayudarte a construir esa estructura.",
+    directCtaButton: "Conversemos",
     pageTitle: "Mathias Pedrozo | Perfil Profesional",
     pageDescription: "Perfil profesional de Mathias Pedrozo. Experiencia en operaciones, análisis de datos, mejora de procesos, reporting ejecutivo y automatización."
   },
@@ -173,6 +199,32 @@ const translations = {
     formNamePlaceholder: "Your name",
     formEmailPlaceholder: "yourname@email.com",
     formMessagePlaceholder: "Tell me briefly how I can help you",
+
+    directNavHome: "Home",
+    directNavIntegral: "Integrated solution",
+    directEyebrow: "Work directly with me",
+    directHeroTitle: "Understand the operation, organize the information, and turn it into decisions.",
+    directHeroLead: "This approach is designed for projects where the value lies in analyzing with judgment, building clarity, and translating business information into concrete monitoring and control tools.",
+    directBackServices: "Back to services",
+    directPanelTitle: "A process with business logic",
+    directPanelText: "It is not only about working with data. Real value appears when that information connects with operations, responds to a concrete need, and becomes a useful tool for making clearer decisions.",
+    directMethodTitle: "Work methodology",
+    directMethodText: "Each project follows a simple logic: first understand, then structure, and finally visualize. This path allows the analysis to go beyond the technical side and create a real improvement in how the business is read and controlled.",
+    directStep1Number: "01",
+    directStep1Title: "Understand before building",
+    directStep1Text1: "Before working on reports, indicators, or dashboards, it is necessary to understand how the operation really works. At this stage, needs, objectives, limitations, workflows, and points where visibility or control are currently lost are identified.",
+    directStep1Text2: "This step gives the later analysis direction and ensures it responds to a concrete business need instead of remaining a superficial reading of the data.",
+    directStep2Number: "02",
+    directStep2Title: "Organize to decide",
+    directStep2Text1: "With the context clear, the work on information begins. Extraction, review, cleaning, structuring, and technical analysis of the data to turn scattered information into a reliable source.",
+    directStep2Text2: "The objective is not only to process information, but to give it consistency so it can be used with judgment, avoiding noise, duplicates, or misinterpretations that affect decision-making.",
+    directStep3Number: "03",
+    directStep3Title: "Visualize to control",
+    directStep3Text1: "The final result takes shape in indicators, reports, and visualizations designed to support business monitoring. This includes dashboard creation, definition of useful metrics, and the adjustments needed to keep information updated and aligned with operational reality.",
+    directStep3Text2: "It is not only about showing data, but about sustaining a useful tool for interpreting deviations, tracking results, and deciding with greater clarity.",
+    directCtaTitle: "When information is organized, the business becomes easier to understand.",
+    directCtaText: "If you are looking to turn scattered data into a clear foundation for analysis, control, and decision-making, this approach can help you build that structure.",
+    directCtaButton: "Let’s talk",
     pageTitle: "Mathias Pedrozo | Professional Profile",
     pageDescription: "Professional profile of Mathias Pedrozo. Experience in operations, data analysis, process improvement, executive reporting, and automation."
   }
@@ -222,6 +274,7 @@ function setLanguage(lang) {
   if (languageInput) languageInput.value = lang;
 
   updateLanguageButtons(lang);
+  updateMobileCollapsibleLabels();
   localStorage.setItem('site-language', lang);
 }
 
@@ -401,6 +454,110 @@ function setupAutoHideNavbar() {
   });
 }
 
+
+
+function getCollapsibleTitle(element) {
+  const heading = element.querySelector('h2, h3');
+  const timelineDate = element.querySelector('.timeline-date');
+  const stepNumber = element.querySelector('.step-number');
+
+  if (heading?.textContent?.trim()) return heading.textContent.trim();
+
+  if (timelineDate?.textContent?.trim()) {
+    const nextHeading = element.querySelector('h3');
+    const date = timelineDate.textContent.trim();
+    const title = nextHeading?.textContent?.trim();
+    return title ? `${date} · ${title}` : date;
+  }
+
+  if (stepNumber?.textContent?.trim()) return stepNumber.textContent.trim();
+
+  return currentLang === 'en' ? 'View details' : 'Ver detalle';
+}
+
+function createCollapseButton(title) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'mobile-collapse-toggle';
+  button.setAttribute('aria-expanded', 'false');
+
+  const titleSpan = document.createElement('span');
+  titleSpan.className = 'mobile-collapse-title';
+  titleSpan.textContent = title;
+
+  const iconSpan = document.createElement('span');
+  iconSpan.className = 'mobile-collapse-icon';
+  iconSpan.setAttribute('aria-hidden', 'true');
+
+  button.append(titleSpan, iconSpan);
+  return button;
+}
+
+function updateMobileCollapsibleLabels() {
+  document.querySelectorAll('.mobile-collapsible').forEach((element) => {
+    const title = getCollapsibleTitle(element);
+    const titleSpan = element.querySelector('.mobile-collapse-title');
+    if (titleSpan) titleSpan.textContent = title;
+  });
+}
+
+function setupMobileCollapsibleCards() {
+  const selectors = [
+    '.cards .card',
+    '.services-grid .service-card',
+    '.timeline-item',
+    '.grid-about .panel',
+    '.grid-2 .panel',
+    '.direct-intro',
+    '.direct-step-content'
+  ];
+
+  const elements = document.querySelectorAll(selectors.join(','));
+  const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+  elements.forEach((element) => {
+    if (element.classList.contains('hero-card') || element.classList.contains('contact-copy') || element.closest('#contacto')) {
+      return;
+    }
+
+    element.classList.add('mobile-collapsible');
+
+    if (!element.querySelector(':scope > .mobile-collapse-toggle')) {
+      const button = createCollapseButton(getCollapsibleTitle(element));
+      element.prepend(button);
+
+      button.addEventListener('click', () => {
+        const isCollapsed = element.classList.toggle('mobile-collapsed');
+        button.setAttribute('aria-expanded', String(!isCollapsed));
+      });
+    }
+  });
+
+  function syncCollapseState() {
+    const isMobile = mobileQuery.matches;
+
+    document.querySelectorAll('.mobile-collapsible').forEach((element) => {
+      const button = element.querySelector(':scope > .mobile-collapse-toggle');
+
+      if (isMobile) {
+        element.classList.add('mobile-collapsed');
+        button?.setAttribute('aria-expanded', 'false');
+      } else {
+        element.classList.remove('mobile-collapsed');
+        button?.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  syncCollapseState();
+
+  if (typeof mobileQuery.addEventListener === 'function') {
+    mobileQuery.addEventListener('change', syncCollapseState);
+  } else if (typeof mobileQuery.addListener === 'function') {
+    mobileQuery.addListener(syncCollapseState);
+  }
+}
+
 /*function setupTestimonialCarousel() {
   const track = document.getElementById('testimonial-track');
   const prevBtn = document.querySelector('.testimonial-arrow-left');
@@ -438,4 +595,5 @@ setupLanguageSwitcher();
 setupContactForm();
 setupRevealAnimations();
 setupAutoHideNavbar();
+setupMobileCollapsibleCards();
 setLanguage(currentLang);
